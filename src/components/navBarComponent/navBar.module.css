@@ -5,7 +5,85 @@
     margin: 1.4rem;
 }
 
+.navLinks {
+    display: flex;
+    gap: 2rem;
+}
 
-.navBarContainer>div {
+.menuIcon {
+    display: none;
     cursor: pointer;
+    font-size: 2rem;
+}
+
+.closeIcon {
+    font-size: 2rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100%;
+    width: 250px;
+    background-color: #111;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebarOpen {
+    right: 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.navBarContainer>div,
+.sidebar>div {
+    cursor: pointer;
+}
+
+.myLogin {
+    display: none;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .navLinks {
+        display: none;
+    }
+
+    .navBarContainer {
+        justify-content: space-between;
+        align-items: center;
+        margin: 1rem;
+    }
+
+    .menuIcon {
+        display: block;
+    }
+
+    .sidebar>div {
+        cursor: pointer;
+        margin: 1.4rem;
+    }
+
+    .myLogin {
+        display: block;
+        justify-self: flex-start;
+    }
 }

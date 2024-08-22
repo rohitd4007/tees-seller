@@ -112,6 +112,7 @@ function RegistrationForm() {
                 </div>
 
                 <button type="submit" className={styles.button}>Register</button>
+                <p className={styles.linkText}>Already a User ? Login here - <a href='/login' style={{ color: 'blue' }}>Login</a></p>
             </form>
         </div>
     );

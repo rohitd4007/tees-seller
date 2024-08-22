@@ -107,6 +107,7 @@ function LoginForm() {
                 </div>
 
                 <button type="submit" className={styles.button}>Login</button>
+                <p className={styles.linkText}>Not User ? Sign Up here - <a href='/register' style={{ color: 'blue' }}>Register</a></p>
             </form>
         </div>
     );
