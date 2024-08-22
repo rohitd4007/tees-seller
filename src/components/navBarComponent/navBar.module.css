@@ -1,0 +1,11 @@
+.navBarContainer {
+    display: flex;
+    justify-content: right;
+    gap: 2rem;
+    margin: 1.4rem;
+}
+
+
+.navBarContainer>div {
+    cursor: pointer;
+}
