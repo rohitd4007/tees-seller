@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import styles from './registrationForm.module.css'; // Import the CSS file
 
 function RegistrationForm() {
     const [formData, setFormData] = useState({
@@ -23,9 +24,7 @@ function RegistrationForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission, e.g., send data to an API or perform validation
         try {
-            // Call the login API to authenticate the user
             const response = await fetch('https://user-auth-orpin-ten.vercel.app/api/auth/register', {
                 method: 'POST',
                 headers: {
@@ -36,84 +35,85 @@ function RegistrationForm() {
 
             if (response.ok) {
                 const data = await response.json();
-                // Store the token in localStorage
-                // localStorage.setItem('authToken', data.token);
-                // Redirect to a protected route
                 router.push('/login');
             } else {
                 const errMessage = await response.text();
-                console.error('Error during Reg:', errMessage);
-
-                // setError(errMessage || 'Registration failed. Please try again.');
+                console.error('Error during registration:', errMessage);
             }
         } catch (err) {
-            console.error('Error during login:', err);
-            // setError('An error occurred. Please try again.');
+            console.error('Error during registration:', err);
         }
-
 
         console.log('Form Data Submitted:', formData);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+        <div className={styles.container}>
+            <h1 className={styles.title}>Register</h1>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.formGroup}>
+                    <label className={styles.label}>Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className={styles.input}
+                    />
+                </div>
 
-            <div>
-                <label>Mobile:</label>
-                <input
-                    type="tel"
-                    name="mobile"
-                    value={formData.mobile}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                <div className={styles.formGroup}>
+                    <label className={styles.label}>Mobile:</label>
+                    <input
+                        type="tel"
+                        name="mobile"
+                        value={formData.mobile}
+                        onChange={handleChange}
+                        required
+                        className={styles.input}
+                    />
+                </div>
 
-            <div>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                <div className={styles.formGroup}>
+                    <label className={styles.label}>Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className={styles.input}
+                    />
+                </div>
 
-            <div>
-                <label>Password:</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                <div className={styles.formGroup}>
+                    <label className={styles.label}>Password:</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        className={styles.input}
+                    />
+                </div>
 
-            <div>
-                <label>PIN:</label>
-                <input
-                    type="password"
-                    name="pin"
-                    value={formData.pin}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                <div className={styles.formGroup}>
+                    <label className={styles.label}>PIN:</label>
+                    <input
+                        type="password"
+                        name="pin"
+                        value={formData.pin}
+                        onChange={handleChange}
+                        required
+                        className={styles.input}
+                    />
+                </div>
 
-            <button type="submit">Register</button>
-        </form>
+                <button type="submit" className={styles.button}>Register</button>
+            </form>
+        </div>
     );
 }
 
