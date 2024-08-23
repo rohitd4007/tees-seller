@@ -1,31 +1,33 @@
 'use client';
 
-import AddProductForm from '@/components/addProductComponent/addProductForm';
 import ImageSlider from '@/components/imageSlider/imageSlider';
 import NavBar from '@/components/navBarComponent/navBar';
 import TopProducts from '@/components/topProductComponent/topProduct';
-import { useState, useEffect } from 'react';
-// import { useRouter } from 'next/router';
-// import { getUserRole } from '../utils/auth'; // Assume this function checks the user's role from a JWT or session
+import { useEffect, useState } from 'react';
 
 export default function Page() {
-    // const router = useRouter();
 
-    // useEffect(() => {
-    //     // Check if the user is an admin
-    //     const role = getUserRole(); // Implement this function to get the user's role from JWT or session
-    //     if (role === 'admin') {
-    //         setIsAdmin(true);
-    //     } else {
-    //         router.push('/'); // Redirect to home if not admin
-    //     }
-    // }, []);
+    const [productData, setProductData] = useState([])
+
+    const getProducts = async () => {
+        try {
+            const res = await fetch('https://user-auth-orpin-ten.vercel.app/api/product/all-products')
+            let products = await res.json();
+            setProductData(products)
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    }
+
+    useEffect(() => {
+        getProducts()
+    }, [])
 
     return (
         <div>
             <NavBar />
             <ImageSlider />
-            <TopProducts />
+            <TopProducts products={productData} />
         </div>
     );
 }

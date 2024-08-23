@@ -1,91 +1,29 @@
 'use client';
 
 import styles from './topProduct.module.css';
-import ec2 from '../../Resources/ec-2.jpg';
 import Image from 'next/image';
 
-
-const TopProducts = ({ }) => {
-    const products = [
-        {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 1
-        },
-        {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 2
-        }, {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 3
-        }, {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 4
-        }, {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 5
-        }, {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 6
-        }, {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 5
-        }, {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 6
-        }, {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 5
-        }, {
-            image: ec2,
-            name: 'Branded T Shirt',
-            price: 200,
-            discount: '23%',
-            id: 6
-        },
-    ]
+const TopProducts = ({ products }) => {
     return (
         <>
             <h1 className={styles.productTitle}>Top Products</h1>
             <div className={styles.productsContainer}>
-                {products.map((product) => (
-                    <div key={product.id} className={styles.productCard}>
+                {products?.map((product) => (
+                    <div key={product._id} className={styles.productCard}>
                         <Image
-                            src={product.image}
-                            alt={product.name}
+                            src={product.product_image_url}
+                            alt={product.product_title}
                             className={styles.productImage}
+                            width={100} // Example width, adjust based on your design
+                            height={100} // Example height, adjust based on your design
                         />
                         <div className={styles.productInfo}>
-                            <h3 className={styles.productName}>{product.name}</h3>
-                            <p className={styles.productPrice}>${product.price.toFixed(2)}</p>
-                            {product.discount && (
-                                <p className={styles.productDiscount}>Discount: {product.discount}%</p>
+                            <h3 className={styles.productName}>{product.product_title}</h3>
+                            <h2 className={styles.productBrand}>{product?.product_brand}</h2>
+                            <p className={styles.productSellingPrice}>${product?.product_selling_price}</p>
+                            <p className={styles.productPrice}>${product?.product_price}</p>
+                            {product.product_discount && (
+                                <p className={styles.productDiscount}>Discount: {product.product_discount}%</p>
                             )}
                         </div>
                     </div>
