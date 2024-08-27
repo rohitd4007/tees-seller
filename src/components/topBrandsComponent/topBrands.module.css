@@ -1,0 +1,22 @@
+.topBrandsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 4rem;
+}
+
+.productTitle {
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+.brandCard {
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.brandCard:hover {
+    transform: scale(1.05);
+}
