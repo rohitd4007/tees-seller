@@ -33,9 +33,8 @@ const ImageSlider = () => {
                         <Image
                             src={src}
                             alt={`Slide ${index}`}
-                            layout="fill"
-                            objectFit="cover"
                             priority
+                            className={styles.image}
                         />
                     </div>
                 ))}
