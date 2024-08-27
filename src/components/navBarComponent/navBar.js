@@ -23,6 +23,11 @@ const NavBar = () => {
         closeSidebar(); // Close sidebar when a link is clicked
     }
 
+    const logoutUser = () => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userData')
+        router.push('/login')
+    }
     useEffect(() => {
         const userData = localStorage.getItem('userData');
         console.log("userDATA : ", JSON.parse(userData))
@@ -33,7 +38,7 @@ const NavBar = () => {
     return (
         <>
             <div className={styles.navBarContainer}>
-                <div className={styles.myLogin} onClick={() => currentUser ? '' : handleBtnClick('/login')}>
+                <div className={styles.myLogin} onClick={() => currentUser ? logoutUser() : handleBtnClick('/login')}>
                     {currentUser ? currentUser : 'Login'}
                 </div>
                 <div className={styles.menuIcon} onClick={toggleSidebar}>

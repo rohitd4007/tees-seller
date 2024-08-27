@@ -36,6 +36,7 @@ function LoginForm() {
                 router.push('/dashboard');
             } else {
                 localStorage.removeItem('authToken');
+                localStorage.removeItem('userData')
                 setError('Session expired. Please log in again.');
             }
         } catch (err) {
@@ -71,7 +72,7 @@ function LoginForm() {
                 localStorage.setItem('userData', JSON.stringify({
                     username: data.name,
                     userEmail: data.email,
-                    userMobile: data?.userMobile || ''
+                    userMobile: data?.mobile || ''
                 }));
                 router.push('/dashboard');
             } else {

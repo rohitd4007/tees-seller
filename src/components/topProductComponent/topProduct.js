@@ -1,15 +1,23 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import styles from './topProduct.module.css';
 import Image from 'next/image';
 
 const TopProducts = ({ products }) => {
+    const router = useRouter();
+
+    const handleCardClick = (price, productDetail) => {
+        localStorage.setItem('selectedProductData', JSON.stringify({ price: price, productDetail: productDetail }))
+        router.push("/productDetails")
+    }
+
     return (
         <>
             <h1 className={styles.productTitle}>Top Products</h1>
             <div className={styles.productsContainer}>
                 {products?.map((product) => (
-                    <div key={product._id} className={styles.productCard}>
+                    <div key={product._id} className={styles.productCard} onClick={() => handleCardClick(product.product_price, product.product_title)}>
                         <Image
                             src={product.product_image_url}
                             alt={product.product_title}

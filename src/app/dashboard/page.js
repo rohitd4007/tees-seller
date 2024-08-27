@@ -52,6 +52,7 @@ export default function Page() {
                 router.push('/dashboard');
             } else {
                 localStorage.removeItem('authToken');
+                localStorage.removeItem('userData')
                 setError('Session expired. Please log in again.');
                 router.push('/login');
             }
