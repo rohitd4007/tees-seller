@@ -1,11 +1,12 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './navBar.module.css';
 
 const NavBar = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [currentUser, setCurrentUser] = useState('');
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
@@ -22,10 +23,19 @@ const NavBar = () => {
         closeSidebar(); // Close sidebar when a link is clicked
     }
 
+    useEffect(() => {
+        const userData = localStorage.getItem('userData');
+        console.log("userDATA : ", JSON.parse(userData))
+        setCurrentUser(JSON.parse(userData)?.username)
+
+    }, [router]);
+
     return (
         <>
             <div className={styles.navBarContainer}>
-                <div className={styles.myLogin} onClick={() => handleBtnClick('/login')}>Login</div>
+                <div className={styles.myLogin} onClick={() => currentUser ? '' : handleBtnClick('/login')}>
+                    {currentUser ? currentUser : 'Login'}
+                </div>
                 <div className={styles.menuIcon} onClick={toggleSidebar}>
                     &#9776;
                 </div>

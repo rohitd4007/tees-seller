@@ -17,8 +17,10 @@ function LoginForm() {
         const token = localStorage.getItem('authToken');
         if (token) {
             verifyToken(token);
+        } else {
+            router.push('/login')
         }
-    }, []);
+    }, [router]);
 
     const verifyToken = async (token) => {
         try {
@@ -66,6 +68,11 @@ function LoginForm() {
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('authToken', data.token);
+                localStorage.setItem('userData', JSON.stringify({
+                    username: data.name,
+                    userEmail: data.email,
+                    userMobile: data?.userMobile || ''
+                }));
                 router.push('/dashboard');
             } else {
                 const errMessage = await response.text();
