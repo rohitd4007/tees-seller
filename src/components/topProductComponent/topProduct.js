@@ -22,17 +22,22 @@ const TopProducts = ({ products }) => {
                             src={product.product_image_url}
                             alt={product.product_title}
                             className={styles.productImage}
-                            width={100} // Example width, adjust based on your design
-                            height={100} // Example height, adjust based on your design
+                            width={100}
+                            height={100}
                         />
                         <div className={styles.productInfo}>
-                            <h3 className={styles.productName}>{product.product_title}</h3>
-                            <h2 className={styles.productBrand}>{product?.product_brand}</h2>
-                            <p className={styles.productSellingPrice}>${product?.product_selling_price}</p>
-                            <p className={styles.productPrice}>${product?.product_price}</p>
-                            {product.product_discount && (
-                                <p className={styles.productDiscount}>Discount: {product.product_discount}%</p>
-                            )}
+                            <h2 className={styles.productBrand}>{product.product_brand}</h2>
+                            <div className={styles.productName}>{product?.product_title}</div>
+                            <div className={styles.productPrice}>
+                                <span>
+                                    <span className={styles.priceSymbol}> ₹ </span>
+                                    <span className={styles.price}>{product?.product_selling_price}</span>
+                                </span>
+                                <span className={styles.actualPriceWrapper}>
+                                    M.R.P: <span className={styles.actualPrice}>{product?.product_price}</span>
+                                    <span>({product.product_discount}% off)</span>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 ))}
