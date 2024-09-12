@@ -1,5 +1,6 @@
 'use client';
 
+import Footer from '@/components/footerComponent/footer';
 import ImageSlider from '@/components/imageSlider/imageSlider';
 import NavBar from '@/components/navBarComponent/navBar';
 import TopBrands from '@/components/topBrandsComponent/topBrands';
@@ -68,6 +69,7 @@ export default function Page() {
             <ImageSlider />
             <TopBrands />
             <TopProducts products={productData} />
+            <Footer />
         </div>
     );
 }
