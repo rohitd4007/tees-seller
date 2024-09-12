@@ -7,6 +7,11 @@ import styles from './navBar.module.css';
 const NavBar = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [currentUser, setCurrentUser] = useState('');
+    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsDropdownVisible(!isDropdownVisible);
+    };
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
@@ -38,8 +43,21 @@ const NavBar = () => {
     return (
         <>
             <div className={styles.navBarContainer}>
-                <div className={styles.myLogin} onClick={() => currentUser ? logoutUser() : handleBtnClick('/login')}>
-                    {currentUser ? currentUser : 'Login'}
+                <div
+                    className={styles.myLogin}
+                    onClick={() => currentUser ? setIsDropdownVisible(true) : handleBtnClick('/login')}
+                    onMouseEnter={toggleDropdown}
+                    onMouseLeave={toggleDropdown}
+                >
+                    <span>{currentUser ? currentUser : 'Login'}</span>
+                    {isDropdownVisible && (
+                        <div className={styles.dropdownContent} onMouseLeave={toggleDropdown}>
+                            <div className={styles.dropdownItem}>My Profile</div>
+                            <div className={styles.dropdownItem}>My Orders</div>
+                            <div className={styles.dropdownItem}>Cart Items</div>
+                            <div className={styles.dropdownItem} onClick={() => logoutUser()}>Log Out</div>
+                        </div>
+                    )}
                 </div>
                 <div className={styles.menuIcon} onClick={toggleSidebar}>
                     &#9776;

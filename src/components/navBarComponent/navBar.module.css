@@ -59,6 +59,8 @@
 
 .myLogin {
     margin-right: auto;
+    position: relative;
+
 }
 
 /* Responsive styles */
@@ -86,4 +88,31 @@
         display: block;
         justify-self: flex-start;
     }
+}
+
+
+.dropdownContent {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1d1c1c !important;
+    color: #ffffff;
+    min-width: 150px;
+    border: 1px solid #000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    padding: 10px;
+    width: 200px;
+    border-radius: 8px;
+}
+
+.dropdownItem {
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdownItem:hover {
+    background-color: #444444;
+    border-radius: 8px;
 }
