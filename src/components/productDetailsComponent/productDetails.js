@@ -1,13 +1,24 @@
 'use client';
 
-import styles from './productDetails.css'; // Import the CSS file
+import styles from './productDetails.module.css';
 import crypto from 'crypto';
+import ec3 from '../../Resources/ec-2.jpg';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+
 
 function ProductDetail() {
 
-    const handleSubmit = async () => {
+    const [productData, setProductData] = useState()
+    useEffect(() => {
         let productData = JSON.parse(localStorage.getItem('selectedProductData'))
+        setProductData(productData)
+    })
+
+
+    const handleSubmit = async () => {
         let userData = JSON.parse(localStorage.getItem('userData'))
+
         let txnid = `txnid${Date.now()}`
         const key = 'e3ks2w';
         const salt = 'Pm3xvJxIOI8npXyxWJgwFwIIwEQKsVAm';
@@ -47,14 +58,47 @@ function ProductDetail() {
         form.submit();
     };
 
+    const product = {
+        name: 'T Shirt',
+        description: productData?.productDetail || '',
+        price: productData?.price || 0,
+        image: ec3,
+        category: 'Clothes',
+        stock: 5
+    };
 
 
     return (
-        <div className={styles.container}>
-            ProductDetail components
-            <button onClick={() => handleSubmit()}>Buy Now</button>
-        </div>
+        <>
+            <div className={styles.productDetailsContainer}>
+                <div className={styles.productImageSection}>
+                    <Image
+                        src={product.image}
+                        alt={product.name}
+                        priority
+                        className={styles.productImage}
+                    />
+                </div>
+                <div className={styles.productInfoSection}>
+                    <h1 className={styles.productTitle}>{product.name}</h1>
+                    <p className={styles.productDescription}>{product.description}</p>
+                    <p className={styles.productPrice}>{product.price} ₹</p>
+                    <p className={styles.productCategory}><strong>Category:</strong> {product.category}</p>
+                    <p className={styles.productStock}><strong>Stock:</strong> {product.stock > 0 ? `${product.stock} available` : 'Out of Stock'}</p>
+                    <div className={styles.buttonsContainer}>
+                        <button className={styles.addToCartBtn} disabled={product.stock === 0}>
+                            {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+                        </button>
+                        <button className={styles.addToCartBtn} onClick={() => handleSubmit()} >
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div >
+
+        </>
     );
 }
 
 export default ProductDetail;
+
