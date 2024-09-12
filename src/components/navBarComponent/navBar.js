@@ -50,7 +50,7 @@ const NavBar = () => {
                     onMouseLeave={toggleDropdown}
                 >
                     <span>{currentUser ? currentUser : 'Login'}</span>
-                    {isDropdownVisible && (
+                    {(currentUser && isDropdownVisible) && (
                         <div className={styles.dropdownContent} onMouseLeave={toggleDropdown}>
                             <div className={styles.dropdownItem}>My Profile</div>
                             <div className={styles.dropdownItem}>My Orders</div>
