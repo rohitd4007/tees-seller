@@ -5,6 +5,7 @@
     align-items: flex-start;
     padding: 2rem;
     gap: 2rem;
+    background: #303030;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     height: 100vh;
 }
@@ -61,6 +62,7 @@
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 .addToCartBtn:disabled {
@@ -69,7 +71,8 @@
 }
 
 .addToCartBtn:hover:enabled {
-    background-color: #355f5d;
+    background-color: #e0e0e0;
+    color: #000;
 }
 
 .buttonsContainer {
