@@ -7,7 +7,7 @@
     gap: 2rem;
     background: #303030;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .productImageSection {
@@ -16,7 +16,7 @@
 
 .productImage {
     width: 100%;
-    height: auto;
+    height: 85vh;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -109,5 +109,12 @@
 
     .buttonsContainer {
         flex-direction: row;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .productImage {
+        height: 55vh;
     }
 }

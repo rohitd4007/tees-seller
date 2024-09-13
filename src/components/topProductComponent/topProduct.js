@@ -7,9 +7,9 @@ import Image from 'next/image';
 const TopProducts = ({ products }) => {
     const router = useRouter();
 
-    const handleCardClick = (price, productDetail) => {
+    const handleCardClick = (price, productDetail, id) => {
         localStorage.setItem('selectedProductData', JSON.stringify({ price: price, productDetail: productDetail }))
-        router.push("/productDetails")
+        router.push(`/productDetails?id=${id}`);
     }
 
     return (
@@ -17,13 +17,13 @@ const TopProducts = ({ products }) => {
             <h1 className={styles.productTitle}>Top Products</h1>
             <div className={styles.productsContainer}>
                 {products?.map((product) => (
-                    <div key={product._id} className={styles.productCard} onClick={() => handleCardClick(product.product_price, product.product_title)}>
+                    <div key={product._id} className={styles.productCard} onClick={() => handleCardClick(product.product_price, product.product_title, product?._id)}>
                         <Image
                             src={product.product_image_url}
                             alt={product.product_title}
                             className={styles.productImage}
-                            width={100}
-                            height={100}
+                            width={500}
+                            height={500}
                         />
                         <div className={styles.productInfo}>
                             <h2 className={styles.productBrand}>{product.product_brand}</h2>
