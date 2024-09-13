@@ -3,9 +3,11 @@ import RegistrationForm from "@/components/registerComponent/registrationForm";
 
 export default function Register() {
     return <>
-        <div>
+        <div >
             <NavBar />
-            <RegistrationForm />
+            <div style={{ background: '#303030', height: '100vh' }}>
+                <RegistrationForm />
+            </div>
         </div>
     </>
 }

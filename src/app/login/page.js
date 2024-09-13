@@ -5,7 +5,9 @@ export default function Login() {
     return <>
         <div>
             <NavBar />
-            <LoginForm />
-        </div>
+            <div style={{ background: '#303030', height: '100vh' }}>
+                <LoginForm />
+            </div>
+        </div >
     </>;
 }
