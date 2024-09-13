@@ -13,7 +13,7 @@ function ProductDetail() {
     useEffect(() => {
         let productData = JSON.parse(localStorage.getItem('selectedProductData'))
         setProductData(productData)
-    })
+    }, [])
 
 
     const handleSubmit = async () => {

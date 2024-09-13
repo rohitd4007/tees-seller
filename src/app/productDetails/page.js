@@ -1,13 +1,12 @@
 'use client';
-
 import NavBar from "@/components/navBarComponent/navBar";
 import ProductDetail from "@/components/productDetailsComponent/productDetails";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ProductDetails() {
-
     const [error, setError] = useState('');
+    const [isTokenVerified, setIsTokenVerified] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -15,9 +14,9 @@ export default function ProductDetails() {
         if (token) {
             verifyToken(token);
         } else {
-            router.push('/login')
+            router.push('/login');
         }
-    }, [router]);
+    }, []);
 
     const verifyToken = async (token) => {
         try {
@@ -28,20 +27,32 @@ export default function ProductDetails() {
                     'Authorization': `Bearer ${token}`
                 }
             });
-
-            if (!response.ok) {
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('userData')
-                setError('Session expired. Please log in again.');
-                router.push('/login');
+            if (response.ok) {
+                setIsTokenVerified(true);
+            } else {
+                handleInvalidToken();
             }
         } catch (err) {
             console.error('Error verifying token:', err);
-            setError('An error occurred. Please log in again.');
+            handleInvalidToken();
         }
     };
-    return <>
-        <NavBar />
-        <ProductDetail />
-    </>;
+
+    const handleInvalidToken = () => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userData');
+        setError('Session expired. Please log in again.');
+        router.push('/login');
+    };
+
+    if (!isTokenVerified) {
+        return <div>loding...</div>;
+    }
+
+    return (
+        <>
+            <NavBar />
+            <ProductDetail />
+        </>
+    );
 }

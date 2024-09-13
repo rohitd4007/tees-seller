@@ -35,7 +35,6 @@ const NavBar = () => {
     }
     useEffect(() => {
         const userData = localStorage.getItem('userData');
-        console.log("userDATA : ", JSON.parse(userData))
         setCurrentUser(JSON.parse(userData)?.username)
 
     }, [router]);
