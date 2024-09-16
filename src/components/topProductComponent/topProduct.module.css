@@ -101,13 +101,13 @@
 
 }
 
-@media(max-width:610px) {
+@media(max-width:500px) {
     .productCard {
-        width: 160px;
+        width: 155px;
     }
 
     .productImage {
-        height: 160px;
+        height: 155px;
     }
 
     .productInfo {
