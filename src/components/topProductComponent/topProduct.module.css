@@ -96,3 +96,17 @@
     }
 
 }
+
+@media(max-width:610px) {
+    .productCard {
+        width: 140px;
+    }
+
+    .productImage {
+        height: 140px;
+    }
+
+    .productInfo {
+        padding: 2px;
+    }
+}
