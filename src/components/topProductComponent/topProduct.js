@@ -35,7 +35,7 @@ const TopProducts = ({ products }) => {
                                 </span>
                                 <span className={styles.actualPriceWrapper}>
                                     M.R.P: <span className={styles.actualPrice}>{product?.product_price}</span>
-                                    <span>({product.product_discount}% off)</span>
+                                    <span className={styles.discount}> {product.product_discount}% off</span>
                                 </span>
                             </div>
                         </div>
