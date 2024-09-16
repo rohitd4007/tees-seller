@@ -95,18 +95,44 @@
         justify-content: space-evenly;
     }
 
+    .productBrand {
+        font-size: medium;
+    }
+
 }
 
 @media(max-width:610px) {
     .productCard {
-        width: 140px;
+        width: 160px;
     }
 
     .productImage {
-        height: 140px;
+        height: 160px;
     }
 
     .productInfo {
         padding: 2px;
+    }
+
+    .priceSymbol {
+        font-size: 10px;
+    }
+
+    .price {
+        font-size: 10px;
+        padding-left: 8px;
+    }
+
+    .productPrice {
+        font-size: 10px;
+
+    }
+
+    .productDiscount {
+        font-size: 10px;
+    }
+
+    .productBrand {
+        font-size: larger;
     }
 }
