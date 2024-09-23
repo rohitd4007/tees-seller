@@ -12,14 +12,14 @@ export default function AddProduct() {
     const [error, setError] = useState('');
     const router = useRouter();
 
-    useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            verifyToken(token);
-        } else {
-            router.push('/login')
-        }
-    }, [router]);
+    // useEffect(() => {
+    //     const token = localStorage.getItem('authToken');
+    //     if (token) {
+    //         verifyToken(token);
+    //     } else {
+    //         router.push('/login')
+    //     }
+    // }, [router]);
 
     const verifyToken = async (token) => {
         try {
@@ -46,8 +46,7 @@ export default function AddProduct() {
     return <>
         <NavBar />
 
-        <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', gap: '2rem', justifyContent: 'center', alignItems: 'center', background: '#303030' }}>
-            {/* {isAdmin && ( */}
+        {/* <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', gap: '2rem', justifyContent: 'center', alignItems: 'center', background: '#303030' }}>
             {!showForm &&
                 <button
                     style={{
@@ -63,8 +62,11 @@ export default function AddProduct() {
                     Add Product
                 </button>
             }
-            {/* )} */}
-            {showForm && <AddProductForm setShowForm={setShowForm} />}
-        </div>
+            {showForm &&  */}
+
+        <AddProductForm setShowForm={setShowForm} />
+
+        {/* }
+        </div> */}
     </>;
 }
