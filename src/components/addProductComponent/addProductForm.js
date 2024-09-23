@@ -32,7 +32,11 @@ function AddProductForm(props) {
                 }
             });
             console.log('Product uploaded successfully:', response.data);
-            setShowForm(false)
+            if (response.data) {
+                alert('Product added successfully!');
+                window.location.reload();
+            }
+
         } catch (error) {
             console.error('Error uploading product:', error.response.data);
         }
