@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './productCards.module.css';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, handleCardClick }) => {
     return (
         <div key={product._id} className={styles.productCard} onClick={() => handleCardClick(product.product_price, product.product_title, product?._id)}>
             <Image

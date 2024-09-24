@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import styles from './topProduct.module.css';
 import ProductCard from '../productCardComponent/productCards';
 
-const TopProducts = ({ products, headerTitle }) => {
+const TopProducts = ({ products, headerTitle, showViewAll = false }) => {
     const router = useRouter();
 
     const handleCardClick = (price, productDetail, id) => {
@@ -17,12 +17,12 @@ const TopProducts = ({ products, headerTitle }) => {
             <h1 className={styles.productTitle}>{headerTitle || 'Top Products'}</h1>
             <div className={styles.productsContainer}>
                 {!headerTitle ? products?.slice(0, 5).map((product) => (
-                    <ProductCard key={product._id} product={product} />
+                    <ProductCard key={product._id} product={product} handleCardClick={handleCardClick} />
                 )) : products?.map((product) => (
-                    <ProductCard key={product._id} product={product} />
+                    <ProductCard key={product._id} product={product} handleCardClick={handleCardClick} />
                 ))}
             </div>
-            <a href="/allProducts" className={styles.viewAllLink}>View All Products</a>
+            {showViewAll && <a href="/allProducts" className={styles.viewAllLink}>View All Products</a>}
         </>
     );
 };
