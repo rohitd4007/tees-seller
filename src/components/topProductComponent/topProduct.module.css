@@ -10,6 +10,14 @@
 .productTitle {
     text-align: center;
     padding-bottom: 1rem;
+    text-transform: capitalize;
+}
+
+.viewAllLink {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 1rem;
 }
 
 .priceSymbol {

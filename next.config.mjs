@@ -16,6 +16,7 @@ const nextConfig = {
         PAYU_KEY: 'e3ks2w',
         PAYU_SALT: 'Pm3xvJxIOI8npXyxWJgwFwIIwEQKsVAm',
     },
+    pageExtensions: ['js', 'jsx'],
 };
 
 export default nextConfig;
