@@ -1,5 +1,6 @@
 'use client'
 
+import NavBar from '@/components/navBarComponent/navBar';
 import TopProducts from '@/components/topProductComponent/topProduct';
 import { useEffect, useState } from 'react';
 
@@ -33,8 +34,15 @@ export default function BrandProducts({ params }) {
     }, [products, brand]);
 
     return (
-        <div>
-            <TopProducts products={filteredProducts} headerTitle={brand + " Products"} />
-        </div>
+        <>
+            <NavBar />
+            <div style={{ background: '#303030', height: '100vh', paddingTop: '1rem' }}>
+                {filteredProducts.length === 0 ? (
+                    <p style={{ textAlign: 'center', fontSize: '1.5rem', color: '#ffffff' }}>No {brand} products available</p>
+                ) : (
+                    <TopProducts products={filteredProducts} headerTitle={brand + " Products"} showViewAll={true} />
+                )}
+            </div>
+        </>
     );
 }

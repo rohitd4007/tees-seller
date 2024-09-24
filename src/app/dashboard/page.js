@@ -68,7 +68,7 @@ export default function Page() {
             <NavBar />
             <ImageSlider />
             <TopBrands />
-            <TopProducts products={productData} />
+            <TopProducts products={productData} showViewAll={true} />
             <Footer />
         </div>
     );

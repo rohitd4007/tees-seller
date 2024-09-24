@@ -1,5 +1,6 @@
 'use client'
 
+import NavBar from '@/components/navBarComponent/navBar';
 import TopProducts from '@/components/topProductComponent/topProduct';
 import { useEffect, useState } from 'react';
 
@@ -21,8 +22,11 @@ export default function AllProducts({ params }) {
     }, []);
 
     return (
-        <div>
-            <TopProducts products={products} headerTitle={"All Products"} />
-        </div>
+        <>
+            <NavBar />
+            <div style={{ background: '#303030', height: '100vh', paddingTop: '1rem' }}>
+                <TopProducts products={products} headerTitle={"All Products"} />
+            </div>
+        </>
     );
 }
