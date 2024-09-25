@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './loginForm.module.css'; // Import the CSS file
+import toast from 'react-hot-toast';
 
 function LoginForm() {
     const [formData, setFormData] = useState({
@@ -74,6 +75,7 @@ function LoginForm() {
                     userEmail: data.email,
                     userMobile: data?.mobile || ''
                 }));
+                toast.success('User Logged in Successfully')
                 router.push('/dashboard');
             } else {
                 const errMessage = await response.text();

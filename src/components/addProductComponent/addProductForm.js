@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import styles from './addProductForm.module.css'; // Import the CSS file
+import toast from 'react-hot-toast';
 
 function AddProductForm(props) {
     const { setShowForm } = props
@@ -32,8 +33,8 @@ function AddProductForm(props) {
                 }
             });
             console.log('Product uploaded successfully:', response.data);
+            toast.success('Product Added Successfully')
             if (response.data) {
-                alert('Product added successfully!');
                 window.location.reload();
             }
 
