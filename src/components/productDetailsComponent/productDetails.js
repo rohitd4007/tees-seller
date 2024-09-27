@@ -6,6 +6,7 @@ import ec3 from '../../Resources/ec-2.jpg';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 
 function ProductDetail() {
@@ -13,6 +14,8 @@ function ProductDetail() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
     const [productData, setProductData] = useState()
+    const [cart, setCart] = useState([])
+
     useEffect(() => {
         getProducts()
     }, [])
@@ -77,6 +80,20 @@ function ProductDetail() {
         stock: 5
     };
 
+    // TODO: IMPLEMENT WITH REDUX
+    const handleAddToCart = (product) => {
+        const existingProductIndex = cart.findIndex(item => item._id === product._id);
+        if (existingProductIndex !== -1) {
+            const updatedCart = [...cart];
+            updatedCart[existingProductIndex].quantity = (updatedCart[existingProductIndex].quantity || 1) + 1;
+            setCart(updatedCart);
+        } else {
+            setCart([...cart, { ...product, quantity: 1 }]);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        toast.success('Product added to cart');
+    }
+
 
     return (
         <>
@@ -98,8 +115,8 @@ function ProductDetail() {
                     <p className={styles.productCategory}><strong>Category:</strong> {"Clothes"}</p>
                     <p className={styles.productStock}><strong>Stock:</strong> {product.stock > 0 ? `${product.stock} available` : 'Out of Stock'}</p>
                     <div className={styles.buttonsContainer}>
-                        <button className={styles.addToCartBtn} disabled={product.stock === 0}>
-                            {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+                        <button className={styles.addToCartBtn} onClick={() => handleAddToCart(productData)}>
+                            {'Add to Cart'}
                         </button>
                         <button className={styles.addToCartBtn} onClick={() => handleSubmit()} >
                             Buy Now
