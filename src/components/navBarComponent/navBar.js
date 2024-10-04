@@ -9,19 +9,11 @@ const NavBar = () => {
     const [currentUser, setCurrentUser] = useState('');
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-    const toggleDropdown = () => {
-        setIsDropdownVisible(!isDropdownVisible);
-    };
-
-    const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
-    };
-
-    const closeSidebar = () => {
-        setSidebarOpen(false);
-    };
-
     const router = useRouter();
+
+    const toggleDropdown = () => setIsDropdownVisible(prev => !prev);
+    const toggleSidebar = () => setSidebarOpen(prev => !prev);
+    const closeSidebar = () => setSidebarOpen(false);
 
     const handleBtnClick = (route) => {
         router.push(route);
@@ -30,13 +22,13 @@ const NavBar = () => {
 
     const logoutUser = () => {
         localStorage.removeItem('authToken');
-        localStorage.removeItem('userData')
-        router.push('/login')
+        localStorage.removeItem('userData');
+        router.push('/login');
     }
+
     useEffect(() => {
         const userData = localStorage.getItem('userData');
-        setCurrentUser(JSON.parse(userData)?.username)
-
+        setCurrentUser(JSON.parse(userData)?.username || '');
     }, [router]);
 
     return (
@@ -44,17 +36,17 @@ const NavBar = () => {
             <div className={styles.navBarContainer}>
                 <div
                     className={styles.myLogin}
-                    onClick={() => currentUser ? setIsDropdownVisible(true) : handleBtnClick('/login')}
+                    onClick={() => currentUser ? toggleDropdown() : handleBtnClick('/login')}
                     onMouseEnter={toggleDropdown}
                     onMouseLeave={toggleDropdown}
                 >
-                    <span>{currentUser ? currentUser : 'Login'}</span>
-                    {(currentUser && isDropdownVisible) && (
+                    <span>{currentUser || 'Login'}</span>
+                    {currentUser && isDropdownVisible && (
                         <div className={styles.dropdownContent} onMouseLeave={toggleDropdown}>
                             <div className={styles.dropdownItem}>My Profile</div>
                             <div className={styles.dropdownItem}>My Orders</div>
                             <div className={styles.dropdownItem}>Cart Items</div>
-                            <div className={styles.dropdownItem} onClick={() => logoutUser()}>Log Out</div>
+                            <div className={styles.dropdownItem} onClick={logoutUser}>Log Out</div>
                         </div>
                     )}
                 </div>
@@ -62,12 +54,9 @@ const NavBar = () => {
                     &#9776;
                 </div>
                 <div className={styles.navLinks}>
-                    <div onClick={() => handleBtnClick('/')}>Home</div>
-                    <div onClick={() => handleBtnClick('/register')}>Register</div>
-                    <div onClick={() => handleBtnClick('/login')}>Login</div>
-                    <div onClick={() => handleBtnClick('/addProduct')}>Add Product</div>
-                    <div onClick={() => handleBtnClick('/about-us')}>About us</div>
-                    <div onClick={() => handleBtnClick('/contact-me')}>Contact</div>
+                    {['/', '/register', '/allProducts', '/addProduct', '/about-us', '/contact-me'].map((route, index) => (
+                        <div key={index} onClick={() => handleBtnClick(route)}>{route === '/' ? 'Home' : route.split('/')[1].replace('-', ' ').replace(/\b\w/g, char => char.toUpperCase())}</div>
+                    ))}
                 </div>
             </div>
 
@@ -75,12 +64,9 @@ const NavBar = () => {
                 <div className={styles.closeIcon} onClick={toggleSidebar}>
                     &times;
                 </div>
-                <div onClick={() => handleBtnClick('/')}>Home</div>
-                <div onClick={() => handleBtnClick('/register')}>Register</div>
-                <div onClick={() => handleBtnClick('/login')}>Login</div>
-                <div onClick={() => handleBtnClick('/addProduct')}>Add Product</div>
-                <div onClick={() => handleBtnClick('/about-us')}>About us</div>
-                <div onClick={() => handleBtnClick('/contact-me')}>Contact</div>
+                {['/', '/register', '/allProducts', '/addProduct', '/about-us', '/contact-me'].map((route, index) => (
+                    <div key={index} onClick={() => handleBtnClick(route)}>{route === '/' ? 'Home' : route.split('/')[1].replace('-', ' ').replace(/\b\w/g, char => char.toUpperCase())}</div>
+                ))}
             </div>
 
             {sidebarOpen && <div className={styles.overlay} onClick={closeSidebar}></div>}
