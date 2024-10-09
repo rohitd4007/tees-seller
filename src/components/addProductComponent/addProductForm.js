@@ -13,6 +13,7 @@ function AddProductForm(props) {
     const [price, setPrice] = useState('');
     const [discount, setDiscount] = useState('');
     const [productImage, setProductImage] = useState(null);
+    const [capturedImage, setCapturedImage] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -43,9 +44,39 @@ function AddProductForm(props) {
         }
     };
 
+    const handleCameraOpen = async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        // Create a button to capture the image
+        const captureButton = document.createElement('button');
+        captureButton.innerText = 'Capture';
+        captureButton.className = styles.captureButton; // Add this line to set the class
+        document.body.appendChild(captureButton);
+
+        captureButton.onclick = () => {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/png');
+            setCapturedImage(imageData);
+            // Optionally populate form fields with image data
+            // setProductBrand('Sample Brand'); // Example of populating fields
+            // setProductTitle('Sample Title'); // Example of populating fields
+            document.body.removeChild(captureButton);
+            stream.getTracks().forEach(track => track.stop());
+        };
+
+        document.body.appendChild(video);
+    };
+
     return (
         <div className={styles.formContainer}>
             <h1 className={styles.heading}>Add New Product</h1>
+            <button onClick={handleCameraOpen} className={styles.cameraButton}>Open Camera</button>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
                     <label htmlFor="productBrand">Product Brand:</label>
@@ -101,6 +132,10 @@ function AddProductForm(props) {
                         required
                         className={styles.input}
                     />
+                </div>
+                <div className={styles.formGroup}>
+                    <label htmlFor="capturedImage">Captured Image:</label>
+                    {capturedImage && <img src={capturedImage} alt="Captured" className={styles.capturedImage} />}
                 </div>
                 <div className={styles.formGroup}>
                     <label htmlFor="productImage">Product Image:</label>

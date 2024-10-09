@@ -45,3 +45,52 @@
 .submitButton:hover {
     background-color: #ce5c2f;
 }
+
+.cameraButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 15px;
+    /* Space below the button */
+}
+
+.cameraButton:hover {
+    background-color: #0056b3;
+    /* Darker shade for hover effect */
+}
+
+.capturedImage {
+    max-width: 100%;
+    /* Ensure the image fits within the container */
+    margin-top: 10px;
+    /* Space above the captured image */
+    border: 1px solid #ddd;
+    /* Optional border for the image */
+    border-radius: 4px;
+    /* Rounded corners for the image */
+}
+
+.captureButton {
+    padding: 10px 20px;
+    background-color: #28a745;
+    /* Bootstrap success color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    /* Space above the button */
+}
+
+.captureButton:hover {
+    background-color: #218838;
+    /* Darker shade for hover effect */
+}
