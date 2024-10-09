@@ -6,7 +6,7 @@ import styles from './addProductForm.module.css'; // Import the CSS file
 import toast from 'react-hot-toast';
 
 function AddProductForm(props) {
-    const { setShowForm } = props
+    const { setShowForm } = props;
     const [productBrand, setProductBrand] = useState('');
     const [productTitle, setProductTitle] = useState('');
     const [sellingPrice, setSellingPrice] = useState('');
@@ -36,7 +36,7 @@ function AddProductForm(props) {
                 }
             });
             console.log('Product uploaded successfully:', response.data);
-            toast.success('Product Added Successfully')
+            toast.success('Product Added Successfully');
             if (response.data) {
                 window.location.reload();
             }
@@ -46,48 +46,57 @@ function AddProductForm(props) {
         }
     };
 
-    const handleCameraOpen = async () => {
-        // Stop the current video stream if it exists
-        if (videoStream) {
-            videoStream.getTracks().forEach(track => track.stop());
+    const handleCameraOpen = async (facingMode = cameraFacingMode) => {
+        try {
+            // Stop the current video stream if it exists
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+            }
+
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: { exact: facingMode } }
+            });
+            setVideoStream(stream); // Save the stream to state
+
+            const video = document.createElement('video');
+            video.srcObject = stream;
+            video.play();
+
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            // Create a button to capture the image
+            const captureButton = document.createElement('button');
+            captureButton.innerText = 'Capture';
+            captureButton.className = styles.captureButton; // Add this line to set the class
+            document.body.appendChild(captureButton);
+
+            captureButton.onclick = () => {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageData = canvas.toDataURL('image/png');
+                setCapturedImage(imageData);
+                document.body.removeChild(captureButton);
+                stream.getTracks().forEach(track => track.stop());
+            };
+
+            document.body.appendChild(video);
+        } catch (error) {
+            console.error('Error accessing camera:', error);
+            toast.error('Unable to access the camera. Please check permissions.');
         }
-
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: cameraFacingMode } });
-        setVideoStream(stream); // Save the stream to state
-        const video = document.createElement('video');
-        video.srcObject = stream;
-        video.play();
-
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-
-        // Create a button to capture the image
-        const captureButton = document.createElement('button');
-        captureButton.innerText = 'Capture';
-        captureButton.className = styles.captureButton; // Add this line to set the class
-        document.body.appendChild(captureButton);
-
-        captureButton.onclick = () => {
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageData = canvas.toDataURL('image/png');
-            setCapturedImage(imageData);
-            document.body.removeChild(captureButton);
-            stream.getTracks().forEach(track => track.stop());
-        };
-
-        document.body.appendChild(video);
     };
 
-    const switchCamera = () => {
-        setCameraFacingMode(prevMode => (prevMode === 'user' ? 'environment' : 'user'));
-        handleCameraOpen(); // Restart camera with the new facing mode
+    const switchCamera = async () => {
+        const newMode = cameraFacingMode === 'user' ? 'environment' : 'user';
+        setCameraFacingMode(newMode);
+        await handleCameraOpen(newMode); // Restart the camera with the new facing mode
     };
 
     return (
         <div className={styles.formContainer}>
             <h1 className={styles.heading}>Add New Product</h1>
-            <button onClick={handleCameraOpen} className={styles.cameraButton}>Open Camera</button>
-            <button onClick={switchCamera} className={styles.cameraButton}>Switch Camera</button> {/* Add this button */}
+            <button onClick={() => handleCameraOpen(cameraFacingMode)} className={styles.cameraButton}>Open Camera</button>
+            <button onClick={switchCamera} className={styles.cameraButton}>Switch Camera</button>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
                     <label htmlFor="productBrand">Product Brand:</label>
