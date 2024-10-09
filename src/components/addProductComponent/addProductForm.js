@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './addProductForm.module.css'; // Import the CSS file
 import toast from 'react-hot-toast';
@@ -14,6 +14,7 @@ function AddProductForm(props) {
     const [discount, setDiscount] = useState('');
     const [productImage, setProductImage] = useState(null);
     const [capturedImage, setCapturedImage] = useState(null);
+    const [cameraFacingMode, setCameraFacingMode] = useState('user'); // 'user' for front camera, 'environment' for back camera
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -45,7 +46,7 @@ function AddProductForm(props) {
     };
 
     const handleCameraOpen = async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: cameraFacingMode } });
         const video = document.createElement('video');
         video.srcObject = stream;
         video.play();
@@ -63,9 +64,6 @@ function AddProductForm(props) {
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const imageData = canvas.toDataURL('image/png');
             setCapturedImage(imageData);
-            // Optionally populate form fields with image data
-            // setProductBrand('Sample Brand'); // Example of populating fields
-            // setProductTitle('Sample Title'); // Example of populating fields
             document.body.removeChild(captureButton);
             stream.getTracks().forEach(track => track.stop());
         };
@@ -73,10 +71,16 @@ function AddProductForm(props) {
         document.body.appendChild(video);
     };
 
+    const switchCamera = () => {
+        setCameraFacingMode(prevMode => (prevMode === 'user' ? 'environment' : 'user'));
+        handleCameraOpen(); // Restart camera with the new facing mode
+    };
+
     return (
         <div className={styles.formContainer}>
             <h1 className={styles.heading}>Add New Product</h1>
             <button onClick={handleCameraOpen} className={styles.cameraButton}>Open Camera</button>
+            <button onClick={switchCamera} className={styles.cameraButton}>Switch Camera</button> {/* Add this button */}
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
                     <label htmlFor="productBrand">Product Brand:</label>
