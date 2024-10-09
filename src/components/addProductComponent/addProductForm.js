@@ -15,6 +15,7 @@ function AddProductForm(props) {
     const [productImage, setProductImage] = useState(null);
     const [capturedImage, setCapturedImage] = useState(null);
     const [cameraFacingMode, setCameraFacingMode] = useState('user'); // 'user' for front camera, 'environment' for back camera
+    const [videoStream, setVideoStream] = useState(null); // State to hold the video stream
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -46,7 +47,13 @@ function AddProductForm(props) {
     };
 
     const handleCameraOpen = async () => {
+        // Stop the current video stream if it exists
+        if (videoStream) {
+            videoStream.getTracks().forEach(track => track.stop());
+        }
+
         const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: cameraFacingMode } });
+        setVideoStream(stream); // Save the stream to state
         const video = document.createElement('video');
         video.srcObject = stream;
         video.play();
