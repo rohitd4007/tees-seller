@@ -1,6 +1,7 @@
 'use client';
 
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-hot-toast'; // Import toast from react-hot-toast
 
 // Ensure we're in a browser environment before accessing local storage
 const isBrowser = typeof window !== 'undefined';
@@ -24,9 +25,9 @@ const cartSlice = createSlice({
                 existingItem.quantity = existingItem.quantity ? existingItem.quantity + 1 : 1; // Safely increment quantity
             } else {
                 // Instead of reassigning state.items, directly push new item if state.items exists
-                // if (!state.items) {
-                //     state.items = []; // Initialize array if not present
-                // }
+                if (!state.items) {
+                    state.items = []; // Initialize array if not present
+                }
                 state?.items?.push({ ...newItem, quantity: 1 }); // Add new item to cart
             }
 
@@ -34,6 +35,9 @@ const cartSlice = createSlice({
             // state.totalQuantity = state.totalQuantity ? state.totalQuantity + 1 : 1;
             // Safely increment totalPrice, fallback to 0 if undefined
             // state.totalPrice = state.totalPrice ? state.totalPrice + newItem.price : newItem.price;
+
+            // Show toast notification after adding item to cart
+            toast.success("Product Added to Cart"); // Update this line
 
             // Save updated cart to local storage (ensure client-side execution)
             console.log(" TEST : ", newItem, isBrowser, state, existingItem)
