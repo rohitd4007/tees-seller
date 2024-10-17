@@ -3,6 +3,8 @@ import NavBar from "@/components/navBarComponent/navBar";
 import ProductDetail from "@/components/productDetailsComponent/productDetails";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Provider } from 'react-redux';
+import store from '../../redux/store'; //
 
 export default function ProductDetails() {
     const [error, setError] = useState('');
@@ -51,8 +53,10 @@ export default function ProductDetails() {
 
     return (
         <>
-            <NavBar />
-            <ProductDetail />
+            <Provider store={store}>
+                <NavBar />
+                <ProductDetail />
+            </Provider>
         </>
     );
 }

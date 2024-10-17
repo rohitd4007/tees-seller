@@ -7,6 +7,8 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '@/redux/cartSlice';
 
 
 function ProductDetail() {
@@ -80,18 +82,24 @@ function ProductDetail() {
         stock: 5
     };
 
+    const dispatch = useDispatch();
+
     // TODO: IMPLEMENT WITH REDUX
     const handleAddToCart = (product) => {
-        const existingProductIndex = cart.findIndex(item => item._id === product._id);
-        if (existingProductIndex !== -1) {
-            const updatedCart = [...cart];
-            updatedCart[existingProductIndex].quantity = (updatedCart[existingProductIndex].quantity || 1) + 1;
-            setCart(updatedCart);
-        } else {
-            setCart([...cart, { ...product, quantity: 1 }]);
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        toast.success('Product added to cart');
+        console.log('callled handle cart', product)
+        // const existingProductIndex = cart.findIndex(item => item._id === product._id);
+        // if (existingProductIndex !== -1) {
+        //     const updatedCart = [...cart];
+        //     updatedCart[existingProductIndex].quantity = (updatedCart[existingProductIndex].quantity || 1) + 1;
+        //     setCart(updatedCart);
+        // } else {
+        //     setCart([...cart, { ...product, quantity: 1 }]);
+        // }
+        // localStorage.setItem('cart', JSON.stringify(cart));
+        // toast.success('Product added to cart');
+
+        dispatch(addItemToCart(product)); // Dispatch the action with the product as payload
+
     }
 
 
