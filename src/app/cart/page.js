@@ -2,7 +2,7 @@
 
 import { Provider } from 'react-redux';
 import store from '../../redux/store'; // Import the store
-import Cart from './Cart';
+import Cart from '../../components/cartComponent/cart';
 
 export default function CartPage() {
     return (

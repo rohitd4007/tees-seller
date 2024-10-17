@@ -11,11 +11,11 @@ const Cart = () => {
         <div>
             <h2>Your Cart</h2>
             <p>Total Quantity: {totalQuantity}</p>
-            <p>Total Price: ${totalPrice.toFixed(2)}</p>
+            <p>Total Price: ${totalPrice?.toFixed(2)}</p>
             <ul>
-                {cartItems.map(item => (
+                {cartItems?.map(item => (
                     <li key={item.id}>
-                        {item.title} - {item.quantity} x ${item.price} = ${item.totalPrice}
+                        {item.title} - {item.quantity} x ${item.price} = ${(item.price * item.quantity).toFixed(2)}
                     </li>
                 ))}
             </ul>
